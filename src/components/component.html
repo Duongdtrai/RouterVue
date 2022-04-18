@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .list-todo {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="components-demo">
+        <button-counter></button-counter>
+        <button-counter2></button-counter2>
+        <button-counter3></button-counter3>
+        <blogprops :title = "title"></blogprops>
+      </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script>
+    Vue.component('blogprops', {
+        props: {
+            title: String,
+            title: {
+                type: String,
+                default: function(){
+                    return ""
+                }
+            },
+        },
+        template: '<h3>{{ title }}</h3>',
+        props: ['title']
+    })
+    Vue.component('button-counter', {
+        data() {
+            return {
+                count: 0
+            }
+        },
+        template: '<button v-on:click="count++">Bạn đã bấm {{ count }} lần.</button>'
+    })
+    Vue.component('button-counter2', {
+        data() {
+            return {
+                count: 0
+            }
+        },
+        template: '<button v-on:click="count++">Bạn đã bấm {{ count }} lần.</button>'
+    })
+    Vue.component('button-counter3', {
+        data() {
+            return {
+                count: 0
+            }
+        },
+        template: '<button v-on:click="count++">Bạn đã bấm {{ count }} lần.</button>'
+    })
+    new Vue({ 
+        el: '#components-demo',
+        data() {
+            return{
+                title: "Phạm Tùng Dương"
+            }
+        }
+    })
+</script>
+
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .list-todo {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div id="app">
+        {{ message }}
+    </div>
+    <div id="app-2">
+        <span v-bind:title="message">
+            Hover your mouse over me for a few seconds
+            to see my dynamically bound title!
+        </span>
+    </div> -->
+    <div id="app-4">
+        <ol>
+            <li v-for="(todo,index) in todos" v-on:click="reversedMessage(index)" v-bind:style="styleObject"
+                :class="{isSelected: selected} ">
+                {{todo.text}}
+            </li>
+        </ol>
+        <input v-model="mess" @change="changeText" />
+        <!-- <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">Style vueJS</div> -->
+    </div>
+    <div id="app7">
+        <p>{{ foo }}</p>
+        <!-- this will no longer update `foo`! -->
+        <button v-on:click="foo = 'baz'">Change it</button>
+    </div>
+
+
+    <div id="todo-list-example">
+        <form v-on:submit.prevent="addNewTodo">
+            <label for="new-todo">Add a todo</label>
+            <input v-model="newTodoText" id="new-todo" placeholder="E.g. Feed the cat">
+            <button>Add</button>
+        </form>
+        <ul>
+            <li v-for="(todo, index) in todos" v-bind:key="todo.id" v-bind:title="todo.title">
+                <div>
+                    {{todo.title}}
+                    <button  v-on:click="removeTodotodos(index)">Remove</button>
+                </div>
+            </li>
+        </ul>
+        <button v-on:click = "handleClick">
+            Click
+        </button>
+
+        <input type="checkbox" id="checkbox" v-model="checked">
+        <label for="checkbox">{{ checked }}</label>
+    </div>
+
+
+    <div id="app5">
+        <div>
+            <div>
+                <div v-show="isShow">
+                    Khóa học này của v-show
+                </div>
+            </div>
+            <div>
+                <template v-if = "isShow === false ? isShow = true : isShow = true">
+                    Khóa học này của v-if
+                </template>
+            </div>
+            
+        </div>
+        <ul >
+            <template v-for="list of student"> 
+                <li class="border"></li>
+                <li>{{ list }}</li>
+            </template>
+            <!-- Nó là dạng kiểu lấy dữ liệu và thẻ không trực tiếp nhận như khi để 1 v-for trong một thẻ div nào đấy -->
+        </ul>
+
+        <div v-for="(number,index) in numbers">
+            <div >{{ number }}</div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script>
+    new Vue({
+        el: '#todo-list-example',
+        data: {
+            checked: true,
+            newTodoText: '',
+            todos: [{
+                    id: 1,
+                    title: 'Do the dishes',
+                },
+                {
+                    id: 2,
+                    title: 'Take out the trash',
+                },
+                {
+                    id: 3,
+                    title: 'Mow the lawn'
+                }
+            ],
+           
+            nextTodoId: 4
+        },
+        components:{
+
+        },
+        methods: {
+            addNewTodo: function () {
+                this.todos.push({
+                    id: this.nextTodoId++,
+                    title: this.newTodoText
+                })
+                this.newTodoText = ''
+            },
+            removeTodotodos: function (index) {
+                this.todos.splice(index,1)
+            },
+            handleClick: function (e){
+                console.log(e);
+            }
+        }
+    })
+
+    new Vue({
+        el: '#app5',
+        data: {
+            isShow: false,
+            student: [
+                'Vũ Thanh Anh',
+                'Đậu Văn Lạc',
+                'Nguyễn Văn Chiến',
+                'Bành Thị Nở',
+                'Trần Thanh Cảnh',
+            ],
+            AllNumber: [
+                1,2,3,4,5,6,7,8,9,10
+            ],
+        },
+        // watch: {
+        //     newTodoText: function(new1,old) {
+        //         console.log(old);
+        //         // console.log(new1);
+        //     },
+        //     numbers(){
+        //         return AllNumber.filter((value,index) => {
+        //             return value%2 === 0
+        //         })
+        //     }
+        // },
+        computed:{
+            numbers(){
+                console.log("Phạm TÙng DƯơng");
+                return this.AllNumber.filter((value,index) => {
+                    return value%2 === 0
+                })
+            }
+        },
+    })
+
+    var obj = {
+        foo: 'bar'
+    }
+    Object.freeze(obj)
+    new Vue({
+        el: '#app7',
+        data: obj
+    })
+    var app4 = new Vue({
+        el: "#app-4",
+        data: {
+            selected: true,
+            mess: "Phạm Tùng Dương",
+            styleObject: {
+                color: 'red',
+                fontSize: '13px'
+            },
+            todos: [{
+                text: 'JavaScript'
+            }, {
+                text: 'C++'
+            }, {
+                text: 'NoteJS'
+            }]
+
+        },
+        methods: {
+            reversedMessage: function (index) {
+                var message = this.todos[index].text;
+                console.log();
+                this.todos[index].text = message.split('').reverse().join('')
+            },
+            changeText: function () {
+                console.log(this.mess);
+            }
+        },
+    })
+    // var app = new Vue({
+    //     el: '#app',
+    //     data: {
+    //         message: 'Hello Vue!'
+    //     }
+    // })
+    // var app2 = new Vue({
+    //     el: '#app-2',
+    //     data: {
+    //     message: 'You loaded this page on ' + new Date().toLocaleString()
+    //     }
+    // })
+    // app2.message = 'some new message'
+    // v-bind: là thành phần chỉ thị, muốn bắt atribute này làm 1 cái gì đó
+    // v-for: chạy vòng lặp
+    // v-on: để xử lí việc bắt sự kiện
+    // v-model
+    // v-if = "điều kiện"
+    // Khi truyeenf 1 object thì "ten truyền"
+    // khi truyền 1 biến thì "{}" hoặc {{}}
+
+    // List rendering là việc xử lí v-for cùng cách:
+    // 1. v-if, v-elseif, v-else ( Conditional vuejs)
+    // 2. template
+    // 3. computed
+    // 4. v-show
+
+    // Conditional vuejs là việc xử lí v-if, v-elseif, v-else, v-show
+    // 1. v-if v-else dùng được trong <template>
+    // 2. v-show không dùng được trong <template>
+
+    // câu hỏi
+    // Một số chỉnh sửa trong v-on (event)
+    // v-on:change: tại sao gõ lại xuất hiện chậm như vậy
+</script>
+
+</html>

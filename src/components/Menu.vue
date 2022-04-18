@@ -1,15 +1,12 @@
 <template>
-    <div class="hello">
-        
+    <div>
+        <h3>Đây là Menu</h3>
     </div>
 </template>
 
 <script>
 export default {
-    name: "HelloWorld",
-    props: {
-        msg: String,
-    },
+    name: "MenuD",
 };
 </script>
 
